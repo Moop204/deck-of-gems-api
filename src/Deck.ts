@@ -44,9 +44,6 @@ export class Deck {
     });
 
     const filledState = fillArray(deckState, 0, 90);
-
-    console.log(referenceDeck.length);
-    console.log(filledState);
     return encodeId(filledState);
   }
 }

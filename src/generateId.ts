@@ -15,15 +15,12 @@ const encodeId = (deck: number[]) => {
     bitSummary = bitSummary << BigInt(1);
     if (val === index) bitSummary |= BigInt(1);
   });
-  console.log(bitSummary);
   const hash = hashids.encode(bitSummary);
   return hash;
 };
 
 const decodeId = (hash: string) => {
   const decode = hashids.decode(hash);
-  console.log("Decoded");
-  console.log(decode);
   let bitSummary = BigInt(decode[0]);
   const referenceOne = BigInt(1);
   const res = [];
