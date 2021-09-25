@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { Card, CardInitialiser, Gem } from "./card";
 import { initialiser } from "./allCards";
+import { generateId } from "./generateId";
 
 // dotenv.config();
 // const app = express();
@@ -31,4 +32,3 @@ import { initialiser } from "./allCards";
 // console.log(c.toJSON());
 
 const allCards = initialiser();
-allCards.forEach((card) => console.log(card.toJSON()));

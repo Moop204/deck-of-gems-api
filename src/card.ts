@@ -6,6 +6,14 @@ export enum Gem {
   BLUE = "blue",
 }
 
+export enum GemNum {
+  "black",
+  "white",
+  "red",
+  "green",
+  "blue",
+}
+
 export type Tier = 1 | 2 | 3;
 
 export interface CardInitialiser {
@@ -63,5 +71,18 @@ export class Card {
       },
     };
     return result;
+  }
+
+  valuesAsSequence() {
+    return [
+      GemNum[this.reward],
+      this.point,
+      this.tier,
+      this.blackCost,
+      this.whiteCost,
+      this.redCost,
+      this.blueCost,
+      this.greenCost,
+    ];
   }
 }
