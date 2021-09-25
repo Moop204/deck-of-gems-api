@@ -85,4 +85,8 @@ export class Card {
       this.greenCost,
     ];
   }
+
+  getTier() {
+    return this.tier;
+  }
 }

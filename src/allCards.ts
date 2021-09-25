@@ -1,4 +1,4 @@
-import { Card, CardInitialiser, Gem, Tier } from "./card";
+import { Card, CardInitialiser, Gem, Tier } from "./Card";
 
 const initialiseBlack = (): number[][] => {
   const rawNum: number[][] = [];
@@ -146,7 +146,7 @@ const cardWrapper = (g: Gem, values: number[][]): Card[] => {
   );
 };
 
-const initialiser = (): Card[] => {
+const fullDeck = (): Card[] => {
   return [
     ...cardWrapper(Gem.BLACK, initialiseBlack()),
     ...cardWrapper(Gem.BLUE, initialiseBlue()),
@@ -156,4 +156,6 @@ const initialiser = (): Card[] => {
   ];
 };
 
-export { initialiser };
+const referenceDeck = fullDeck();
+
+export { fullDeck, referenceDeck };
