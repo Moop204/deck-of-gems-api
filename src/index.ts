@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { Card, CardInitialiser, Gem } from "./Card";
 import { fullDeck } from "./allCards";
-import { Deck } from "./Deck";
+import { GemDeck } from "./GemDeck";
 import { decodeId } from "./generateId";
 
 // dotenv.config();
@@ -34,10 +34,13 @@ import { decodeId } from "./generateId";
 
 // const allCards = fullDeck();
 
-const d1 = new Deck([3, 6, 7]);
-const hash1 = d1.generateId();
-console.log(hash1);
-console.log(decodeId(hash1));
-const d2 = new Deck(decodeId(hash1));
-const hash2 = d1.generateId();
-console.log(hash2);
+// const d1 = new GemDeck([3, 6, 7]);
+// const hash1 = d1.generateId();
+// console.log(hash1);
+// console.log(decodeId(hash1));
+// const d2 = new GemDeck(decodeId(hash1));
+// const hash2 = d1.generateId();
+// console.log(hash2);
+
+const d1 = new GemDeck([3, 6, 7, 10]);
+console.log(d1.drawGem(1).toJSON());

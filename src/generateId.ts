@@ -3,12 +3,6 @@ import { referenceDeck } from "./allCards";
 
 const hashids = new Hashids();
 
-import { Card } from "./Card";
-
-function dec2bin(dec: number) {
-  return (dec >>> 0).toString(2);
-}
-
 const encodeId = (deck: number[]) => {
   let bitSummary = BigInt(1);
   deck.forEach((val, index) => {
@@ -28,13 +22,8 @@ const decodeId = (hash: string) => {
     if ((bitSummary & referenceOne) === referenceOne) {
       res.push(referenceDeck.length - i - 1);
     }
-    bitSummary = bitSummary >> referenceOne;
+    bitSummary >>= referenceOne;
   }
-
-  // deck.forEach((val, index) => {
-  //   bitSummary = bitSummary << BigInt(1);
-  //   if (val === index) bitSummary |= BigInt(1);
-  // });
   return res.reverse();
 };
 
