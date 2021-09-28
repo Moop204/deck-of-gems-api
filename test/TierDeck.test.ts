@@ -1,7 +1,5 @@
 import { referenceDeck } from "../src/allCards";
 import { Card, Tier } from "../src/Card";
-import { GemDeck } from "../src/GemDeck";
-import { decodeId } from "../src/generateId";
 import { TierDeck } from "../src/TierDeck/TierDeck";
 
 jest.mock("../src/Card");

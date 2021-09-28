@@ -3,12 +3,6 @@ import { referenceDeck } from "./allCards";
 
 const hashids = new Hashids();
 
-import { Card } from "./Card";
-
-function dec2bin(dec: number) {
-  return (dec >>> 0).toString(2);
-}
-
 const encodeId = (deck: number[]) => {
   let bitSummary = BigInt(1);
   deck.forEach((val, index) => {
