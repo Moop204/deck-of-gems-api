@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node ./src/index.ts",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "deploy": "git add . && git commit -m Heroku && git push heroku main"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
