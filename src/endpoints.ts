@@ -4,6 +4,9 @@ import { GemDeck } from "./GemDeck";
 import { Tier } from "./Card";
 import { decodeId } from "./generateId";
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+
 export function initEndpoints() {
   // dotenv.config();
   const app = express();
@@ -24,4 +27,6 @@ export function initEndpoints() {
     const card = board.drawGem(parseInt(req.query.tier)).toJSON();
     res.status(200).json({ state: board.generateId(), card });
   });
+
+  app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 }
