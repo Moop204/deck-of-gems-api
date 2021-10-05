@@ -1,0 +1,178 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the documentation for Deck of Gems API.",
+        "version": "1.0.0",
+        "title": "Deck of Gems API",
+        "contact": {
+            "email": "z5162792@unsw.edu.au"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://mit-license.org/"
+        }
+    },
+    "host": "tbd",
+    "basePath": "/v2",
+    "tags": [
+        {
+            "name": "actions",
+            "description": "Actions involving the deck"
+        }
+    ],
+    "schemes": ["https", "http"],
+    "paths": {
+        "/start": {
+            "get": {
+                "tags": ["actions"],
+                "summary": "Gives initial state of the game",
+                "description": "Request the initial state of the game in the form of an id.",
+                "operationId": "start",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Code used in further API calls to identify state of deck.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/State"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
+        },
+        "/draw": {
+            "get": {
+                "tags": ["actions"],
+                "summary": "Draw a card",
+                "description": "Obtain a Card by from one of their tiers",
+                "operationId": "draw",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "description": "State code to describe the cards available in the deck",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tier",
+                        "in": "query",
+                        "description": "Selected tier of card to draw from",
+                        "required": true,
+                        "type": "integer",
+                        "items": {
+                            "$ref": "#/definitions/Tier"
+                        },
+                        "collectionFormat": "multi"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Card"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                },
+                "security": [
+                    {
+                        "petstore_auth": ["write:pets", "read:pets"]
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "Tier": {
+            "type": "integer",
+            "enum": [1, 2, 3],
+            "default": "available"
+        },
+        "State": {
+            "type": "object",
+            "properties": {
+                "state": {
+                    "type": "string",
+                    "description": "The initial state of the deck with all cards."
+                }
+            }
+        },
+        "Card": {
+            "type": "object",
+            "properties": {
+                "reward": {
+                    "type": "string",
+                    "example": "red",
+                    "enum": ["white", "black", "blue", "green", "red"],
+                    "description": "The gem colour provided by this card."
+                },
+                "point": {
+                    "type": "integer",
+                    "example": 3,
+                    "minimum": 1,
+                    "maximum": 5,
+                    "description": "Victory points given by the card."
+                },
+                "tier": {
+                    "type": "integer",
+                    "description": "Tier of cards.",
+                    "enum": [1, 2, 3]
+                },
+                "cost": {
+                    "type": "object",
+                    "properties": {
+                        "black": {
+                            "type": "integer",
+                            "description": "Number of black gems required to obtain this card.",
+                            "example": 2
+                        },
+                        "white": {
+                            "type": "integer",
+                            "description": "Number of white gems required to obtain this card.",
+                            "example": 2
+                        },
+                        "red": {
+                            "type": "integer",
+                            "description": "Number of red gems required to obtain this card.",
+                            "example": 2
+                        },
+                        "green": {
+                            "type": "integer",
+                            "description": "Number of green gems required to obtain this card.",
+                            "example": 2
+                        },
+                        "blue": {
+                            "type": "integer",
+                            "description": "Number of blue gems required to obtain this card.",
+                            "example": 2
+                        }
+                    }
+                }
+            }
+        },
+        "DrawResponse": {
+            "type": "object",
+            "properties": {
+                "card": { "$ref": "#/definitions/Card" },
+                "state": { "$ref": "#/definitions/State" }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}

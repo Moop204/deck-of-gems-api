@@ -3,9 +3,8 @@ import dotenv from "dotenv";
 import { GemDeck } from "./GemDeck";
 import { Tier } from "./Card";
 import { decodeId } from "./generateId";
-
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./swagger.json");
+import * as swaggerDocument from "./swagger.json";
+import swaggerUi from "swagger-ui-express";
 
 export function initEndpoints() {
   // dotenv.config();
