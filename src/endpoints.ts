@@ -22,7 +22,8 @@ export function initEndpoints() {
 
   app.get("/draw", (req: any, res: any) => {
     if (req.query.state && req.query.tier) {
-      console.log(decodeId(req.query.state));
+
+res.set('Access-Control-Allow-Origin', 'https://deck-of-gems.herokuapp.com/');      console.log(decodeId(req.query.state));
       const board = new GemDeck(decodeId(req.query.state));
       const card = board.drawGem(parseInt(req.query.tier)).toJSON();
       res.status(200).json({ state: board.generateId(), card });
