@@ -5,25 +5,37 @@ import { Tier } from "./Card";
 import { decodeId } from "./generateId";
 import * as swaggerDocument from "./swagger.json";
 import swaggerUi from "swagger-ui-express";
+import cors from "cors";
 
 export function initEndpoints() {
   // dotenv.config();
   const app = express();
+  app.use(cors());
 
   // Uses Heroku defined port number or else 3000
   const port = process.env.PORT || 3000;
 
   app.listen(port, () => console.log(`server started ${port}`));
 
-  app.get("/start", (req: any, res: any) => {
+  app.get("/start", cors(), (req: any, res: any) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
     const board = new GemDeck();
     res.status(200).json({ state: board.generateId() });
   });
 
-  app.get("/draw", (req: any, res: any) => {
+  app.get("/draw", cors(), (req: any, res: any) => {
+    console.log("draw: " + req.query.state);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
     if (req.query.state && req.query.tier) {
-
-res.set('Access-Control-Allow-Origin', 'https://deck-of-gems.herokuapp.com/');      console.log(decodeId(req.query.state));
+      // console.log(decodeId(req.query.state));
       const board = new GemDeck(decodeId(req.query.state));
       const card = board.drawGem(parseInt(req.query.tier)).toJSON();
       res.status(200).json({ state: board.generateId(), card });
