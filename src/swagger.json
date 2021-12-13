@@ -94,6 +94,30 @@
           }
         ]
       }
+    },
+    "/bonus": {
+      "get": {
+        "tags": ["actions"],
+        "summary": "Gets a list of bonus cards",
+        "description": "Obtains a combination of bonus cards needed for a game.",
+        "operationId": "bonus",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Description of bonus cards.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Bonus"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -108,6 +132,45 @@
         "state": {
           "type": "string",
           "description": "The initial state of the deck with all cards."
+        }
+      }
+    },
+    "Bonus": {
+      "type": "object",
+      "properties": {
+        "reward": {
+          "type": "number",
+          "description": "Points gained from owning required gems."
+        },
+        "requirement": {
+          "type": "object",
+          "properties": {
+            "black": {
+              "type": "integer",
+              "description": "Number of black gems required to obtain this card.",
+              "example": 2
+            },
+            "white": {
+              "type": "integer",
+              "description": "Number of white gems required to obtain this card.",
+              "example": 2
+            },
+            "red": {
+              "type": "integer",
+              "description": "Number of red gems required to obtain this card.",
+              "example": 2
+            },
+            "green": {
+              "type": "integer",
+              "description": "Number of green gems required to obtain this card.",
+              "example": 2
+            },
+            "blue": {
+              "type": "integer",
+              "description": "Number of blue gems required to obtain this card.",
+              "example": 2
+            }
+          }
         }
       }
     },

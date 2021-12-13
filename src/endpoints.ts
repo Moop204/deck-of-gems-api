@@ -6,6 +6,7 @@ import { decodeId } from "./generateId";
 import * as swaggerDocument from "./swagger.json";
 import swaggerUi from "swagger-ui-express";
 import cors from "cors";
+import { BonusDeck } from "./BonusDeck";
 
 export function initEndpoints() {
   // dotenv.config();
@@ -55,6 +56,16 @@ export function initEndpoints() {
         .status(400)
         .json({ errormessage: "Lacking state or tier parameter." });
     }
+  });
+
+  app.get("/bonus", cors(), (req: any, res: any) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    const deck = new BonusDeck();
+    res.status(200).json(deck.drawBonus());
   });
 
   app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
