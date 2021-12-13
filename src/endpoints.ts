@@ -28,7 +28,7 @@ export function initEndpoints() {
   });
 
   app.get("/draw", cors(), (req: any, res: any) => {
-    console.log("draw: " + req.query.state);
+    // console.log("draw: " + req.query.state);
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
       "Access-Control-Allow-Headers",
@@ -37,9 +37,20 @@ export function initEndpoints() {
     if (req.query.state && req.query.tier) {
       // console.log(decodeId(req.query.state));
       const board = new GemDeck(decodeId(req.query.state));
-      const card = board.drawGem(parseInt(req.query.tier)).toJSON();
-      res.status(200).json({ state: board.generateId(), card });
+      const cardType = board.drawGem(parseInt(req.query.tier));
+      if (cardType) {
+        const card = cardType.toJSON();
+        console.log("200: " + board.generateId());
+        console.log(card);
+        res.status(200).json({ state: board.generateId(), card });
+      } else {
+        console.log("409: " + req.query.tier);
+        res.status(409).json({
+          error: "Cannot draw from this tier because no cards are left.",
+        });
+      }
     } else {
+      console.log("400: BAD");
       res
         .status(400)
         .json({ errormessage: "Lacking state or tier parameter." });
