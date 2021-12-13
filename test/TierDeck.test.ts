@@ -31,9 +31,7 @@ describe("testing TierDeck object", () => {
     const td = new TierDeck(cardIndexes);
     const drawnCards = [];
     while (td.remainingCards() > 0) {
-      console.log(td.remainingCards());
       drawnCards.push(td.draw().toJSON());
-      console.log(td.remainingCards());
     }
     const expectedCards = cardIndexes.map((idx) => {
       return referenceDeck[idx].toJSON();

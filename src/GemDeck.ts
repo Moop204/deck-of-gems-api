@@ -66,6 +66,7 @@ export class GemDeck {
         break;
       default:
         console.log("Error: Undefined tier drawn from");
+        return null;
     }
     return deck.draw();
   }
